@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wais Wallet</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.emailjs.com/sdk/3.2.0/email.min.js"></script>
+<script>
+  (function(){
+    emailjs.init(servise_itckqte); // Replace with your EmailJS user ID
+  })();
+</script>
+
+</head>
+<body>
+  <header>
+    <h1>Wais Wallet</h1>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#features">Features</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HOME -->
+    <section id="home">
+      <div class="content">
+        <h2>Be Smart with Your Money</h2>
+        <p>Track expenses, set goals, and save wisely with Wais Wallet.</p>
+        <a href="#features" class="btn">Get Started</a>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features">
+      <h2>Our Features</h2>
+      <div class="features">
+        <a href="#expense-tracker" class="feature-card">
+          <h3>💰 Expense Tracker</h3>
+          <p>Monitor your spending habits easily.</p>
+        </a>
+        <a href="#budget-goals" class="feature-card">
+          <h3>🎯 Budget Goals</h3>
+          <p>Set targets and achieve them faster.</p>
+        </a>
+        <a href="#smart-insights" class="feature-card">
+          <h3>📊 Smart Insights</h3>
+          <p>Get detailed analytics to improve decisions.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="about-section">
+  <div class="about-container">
+    <h1>About Wais Wallet</h1>
+    <p>Learn about our mission, vision, and how we help you manage your finances smarter.</p>
+
+    <!-- Video Section with hover effect -->
+    <div class="video-wrapper">
+      <video controls>
+        <source src="563475908_24721841757444442_3126124384030305690_n.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <!-- Mission & Vision Cards -->
+    <section id="about" class="about-section">
+  <div class="about-container">
+    <h1>About Wais Wallet</h1>
+    <p>Learn about our mission, vision, and how we help you manage your finances smarter.</p>
+
+    <!-- Mission & Vision Cards -->
+    <div class="mission-vision-cards">
+      <div class="card mission-card">
+        <h2>Mission</h2>
+        <p>Wais Wallet empowers individuals to take control of their finances by providing tools to track spending, set budgets, and achieve savings goals.</p>
+        <button class="learn-more" data-target="#budget-goals">Learn More</button>
+      </div>
+
+      <div class="card vision-card">
+        <h2>Vision</h2>
+        <p>Wais Wallet envisions a world where everyone has the confidence and knowledge to manage their finances effectively and achieve financial independence.</p>
+        <button class="learn-more" data-target="#budget-goals">Learn More</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+   <!-- Quiz Section -->
+    <section id="quiz-section" class="quiz-section">
+  <div class="quiz-container">
+    <h1>Discover Your Budget Personality!</h1>
+    <p>Answer a few questions to find out your budgeting style.</p>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+
+    <!-- Quiz Questions -->
+    <div id="quiz">
+      <div class="question" data-q="1">
+        <p>1. How do you handle unexpected expenses?</p>
+        <button data-value="A">I save a little each month for surprises.</button>
+        <button data-value="B">I rely on my credit card if needed.</button>
+        <button data-value="C">I try to cut back elsewhere quickly.</button>
+      </div>
+
+      <div class="question" data-q="2">
+        <p>2. How often do you track your expenses?</p>
+        <button data-value="A">Every week or month</button>
+        <button data-value="B">Only when I feel it’s necessary</button>
+        <button data-value="C">Rarely</button>
+      </div>
+
+      <div class="question" data-q="3">
+        <p>3. What’s your saving goal style?</p>
+        <button data-value="A">I set clear goals and stick to them</button>
+        <button data-value="B">I save whatever is left at the end of the month</button>
+        <button data-value="C">I save when I’m motivated</button>
+      </div>
+    </div>
+
+    <!-- Result Card -->
+    <div id="result" class="result-card">
+      <h2>Your Budget Personality:</h2>
+      <p id="personality"></p>
+      <p id="tip"></p>
+      <button id="go-expense">Go to Expense Tracker</button>
+    </div>
+  </div>
+</section>
+
+  <script>
+    const questions = document.querySelectorAll(".question");
+    const resultCard = document.getElementById("result");
+    const personalityText = document.getElementById("personality");
+    const tipText = document.getElementById("tip");
+    const goExpenseBtn = document.getElementById("go-expense");
+
+    let answers = [];
+
+    questions.forEach(question => {
+      const buttons = question.querySelectorAll("button");
+      buttons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          answers.push(btn.dataset.value);
+          question.style.display = "none";
+
+          const next = question.nextElementSibling;
+          if(next && next.classList.contains("question")) {
+            next.style.display = "block";
+          } else {
+            showResult();
+          }
+        });
+      });
+    });
+
+    function showResult() {
+      const counts = { A: 0, B: 0, C: 0 };
+      answers.forEach(ans => counts[ans]++);
+      let personality = '';
+      let tip = '';
+
+      if(counts.A >= 2) {
+        personality = "The Smart Saver";
+        tip = "You love planning ahead! Start tracking your expenses now to reach your goals faster.";
+      } else if(counts.B >= 2) {
+        personality = "The Flexible Spender";
+        tip = "You like freedom but using Wais Wallet will help you stay on top of important expenses.";
+      } else {
+        personality = "The Impulsive Planner";
+        tip = "You sometimes struggle, but small changes with Wais Wallet can make a big difference!";
+      }
+
+      personalityText.textContent = personality;
+      tipText.textContent = tip;
+      resultCard.style.display = "block";
+
+      setTimeout(() => {
+        window.location.href = "#expense-tracker"; // Redirect to Expense Tracker section
+      }, 5000);
+    }
+
+    goExpenseBtn.addEventListener("click", () => {
+      window.location.href = "#expense-tracker";
+    });
+  </script> 
+
+</section>
+
+
+    <!-- CONTACT -->
+    <section id="contact">
+  <h2>Contact Us</h2>
+  <form id="contact-form">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <input type="text" name="subject" placeholder="Subject" required>
+    <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+    <button type="submit">Send Message</button>
+  </form>
+  <p id="confirmation" style="display:none; color: green; margin-top: 10px;">
+    Thank you! Your message has been sent.
+  </p>
+</section>
+
+<script src="https://cdn.emailjs.com/sdk/3.2.0/email.min.js"></script>
+<script>
+  // Initialize EmailJS with your User ID
+  (function(){
+    emailjs.init(Valenzuela, Sheva ); // <-- Replace with your EmailJS User ID
+  })();
+
+  const contactForm = document.getElementById('contact-form');
+  const confirmation = document.getElementById('confirmation');
+
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Replace with your Service ID and Template ID
+    emailjs.send("service_gws4603",{
+      from_name: contactForm.name.value,
+      from_email: contactForm.email.value,
+      subject: contactForm.subject.value,
+      message: contactForm.message.value,
+      to_email: "shevalenzuela02@gmail.com" // <-- Your Gmail
+    })
+    .then(() => {
+      confirmation.style.display = 'block';
+      contactForm.reset();
+    }, (error) => {
+      alert("Oops! Something went wrong. Please try again.");
+      console.error(error);
+    });
+  });
+</script>
+
+
+
+</script>
+
+ <!-- EXPENSE TRACKER -->
+<section id="expense-tracker">
+  <h2>💰 Expense Tracker</h2>
+  <div class="detail">
+    <p>Track your spending below. Add each expense, remove items, and get smart insights instantly!</p>
+
+    <div class="tracker-box">
+      <label for="allowance">Your Allowance (₱):</label><br>
+      <input type="number" id="allowance" placeholder="Enter allowance"><br><br>
+
+      <label for="expense-name">Expense Name:</label><br>
+      <input type="text" id="expense-name" placeholder="e.g., Snacks, Transportation"><br><br>
+
+      <label for="expense-amount">Amount (₱):</label><br>
+      <input type="number" id="expense-amount" placeholder="Enter amount"><br><br>
+
+      <button type="button" class="btn" id="add-expense">Add Expense</button>
+
+      <table id="expense-table">
+        <thead>
+          <tr>
+            <th>Expense</th>
+            <th>Amount (₱)</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <div class="summary">
+        <p><strong>Total Expenses:</strong> ₱<span id="total-expenses">0</span></p>
+        <p><strong>Remaining Balance:</strong> ₱<span id="remaining">0</span></p>
+      </div>
+
+      <a href="#recommendations" class="btn rec-btn" id="go-rec">Get Recommendation</a>
+    </div>
+  </div>
+
+  <a href="#features" class="back">← Back to Features</a>
+</section>
+
+<!-- RECOMMENDATION PAGE -->
+<section id="recommendations">
+  <h2>💡 Smart Recommendations</h2>
+  <div class="detail">
+    <div id="advice-box" class="feedback-box">
+      <p>Track your spending first to receive personalized recommendations.</p>
+    </div>
+  </div>
+
+  <a href="#expense-tracker" class="back">← Back to Expense Tracker</a>
+</section>
+
+<script>
+  const addBtn = document.getElementById("add-expense");
+  const expenseTable = document.querySelector("#expense-table tbody");
+  const totalExpensesEl = document.getElementById("total-expenses");
+  const remainingEl = document.getElementById("remaining");
+  const recBtn = document.getElementById("go-rec");
+  const adviceBox = document.getElementById("advice-box");
+
+  let totalExpenses = 0;
+  let remaining = 0;
+  let allowance = 0;
+  let expenses = [];
+
+  function updateTotals() {
+    totalExpenses = expenses.reduce((sum, exp) => sum + exp.amount, 0);
+    totalExpensesEl.textContent = totalExpenses.toFixed(2);
+    remaining = allowance - totalExpenses;
+    remainingEl.textContent = remaining.toFixed(2);
+  }
+
+  function renderTable() {
+    expenseTable.innerHTML = "";
+    expenses.forEach((exp, index) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${exp.name}</td>
+        <td>₱${exp.amount.toFixed(2)}</td>
+        <td><button class="remove-btn" data-index="${index}">Remove</button></td>
+      `;
+      expenseTable.appendChild(row);
+    });
+
+    // Attach remove listeners
+    document.querySelectorAll(".remove-btn").forEach(btn => {
+      btn.addEventListener("click", function() {
+        const index = this.getAttribute("data-index");
+        expenses.splice(index, 1);
+        renderTable();
+        updateTotals();
+      });
+    });
+  }
+
+  addBtn.addEventListener("click", function() {
+    allowance = parseFloat(document.getElementById("allowance").value);
+    const name = document.getElementById("expense-name").value.trim();
+    const amount = parseFloat(document.getElementById("expense-amount").value);
+
+    if (!allowance || !name || !amount) {
+      alert("⚠️ Please fill out all fields.");
+      return;
+    }
+
+    expenses.push({ name, amount });
+    renderTable();
+    updateTotals();
+
+    document.getElementById("expense-name").value = "";
+    document.getElementById("expense-amount").value = "";
+  });
+
+  recBtn.addEventListener("click", function() {
+    const percent = (totalExpenses / allowance) * 100;
+    let advice = "";
+
+    if (!allowance || allowance <= 0) {
+      advice = "<p>⚠️ Please enter your allowance and add some expenses first.</p>";
+    } else if (percent < 50) {
+      advice = `
+        <h3>💚 Great Job!</h3>
+        <p>You've only spent ${percent.toFixed(1)}% of your allowance. Keep it up!</p>
+        <p>✅ Tip: Save a portion of your ₱${remaining.toFixed(2)} — even ₱50 daily adds up.</p>
+        <p>💬 “Wealth grows from consistency, not luck.”</p>
+      `;
+    } else if (percent < 80) {
+      advice = `
+        <h3>🟡 Almost There!</h3>
+        <p>You’ve spent ${percent.toFixed(1)}% of your allowance. Be cautious as you approach your limit.</p>
+        <p>💡 Tip: Review your biggest costs — you might find habits to adjust.</p>
+        <p>💬 “The small leaks sink the biggest ships.”</p>
+      `;
+    } else if (percent <= 100) {
+      advice = `
+        <h3>🟠 Warning Zone!</h3>
+        <p>You’ve used ${percent.toFixed(1)}% of your allowance. Time to slow down!</p>
+        <p>💰 Tip: Track non-essentials and avoid impulse buys for now.</p>
+        <p>💬 “Discipline today means freedom tomorrow.”</p>
+      `;
+    } else {
+      advice = `
+        <h3>🔴 Overspent!</h3>
+        <p>You've spent ${percent.toFixed(1)}% of your allowance — over budget!</p>
+        <p>⚠️ Tip: Try listing your needs vs wants. Next week, aim for at least 10% savings.</p>
+        <p>💬 “A budget is telling your money where to go instead of wondering where it went.”</p>
+      `;
+    }
+
+    adviceBox.innerHTML = advice;
+  });
+</script>
+
+
+    <!-- BUDGET GOALS -->
+<section id="budget-goals">
+  <h2>🎯 Budget Goals</h2>
+  <div class="detail">
+    <p>
+      Set realistic financial goals and stick to them! Create monthly budgets,
+      monitor your progress, and celebrate every win with Wais Wallet’s smart goal tracker.
+    </p>
+  </div>
+
+  <div class="streak-section">
+    <h3>🔥 Savings Streak Challenge</h3>
+    <p class="intro">
+      Build your saving habit! Enter how much you want to save each day, mark your days,
+      or choose future dates if you want to advance save. Watch your total grow!
+    </p>
+
+    <!-- 🔥 Flame Visual -->
+    <div class="flame"></div>
+
+    <!-- Input amount per day -->
+    <div class="input-section">
+      <label for="amountInput"><strong>Enter Amount per Day (₱):</strong></label><br>
+      <input type="number" id="amountInput" min="1" placeholder="e.g. 100">
+    </div>
+
+    <!-- Calendar -->
+    <div class="calendar-section">
+      <label for="saveDate"><strong>Select Date to Save:</strong></label><br>
+      <input type="date" id="saveDate">
+      <button id="saveBtn">Add Saving</button>
+    </div>
+
+    <!-- Days -->
+    <div class="days">
+      <label><input type="checkbox" class="day"><span>Mon</span></label>
+      <label><input type="checkbox" class="day"><span>Tue</span></label>
+      <label><input type="checkbox" class="day"><span>Wed</span></label>
+      <label><input type="checkbox" class="day"><span>Thu</span></label>
+      <label><input type="checkbox" class="day"><span>Fri</span></label>
+      <label><input type="checkbox" class="day"><span>Sat</span></label>
+      <label><input type="checkbox" class="day"><span>Sun</span></label>
+    </div>
+
+    <!-- Amount display -->
+    <div class="amount-section">
+      <p><strong>Total Saved:</strong> ₱<span id="totalSaved">0</span></p>
+      <p><em id="logMessage">No savings recorded yet.</em></p>
+    </div>
+
+    <!-- Navigation buttons -->
+    <div class="nav-buttons">
+      <button id="viewSavingsBtn">💾 View My Savings List</button>
+      <button id="backBtn">⬅ Back to Features</button>
+    </div>
+
+    <p class="message">You’re on a <strong>streak</strong>! Keep it up 💪</p>
+  </div>
+
+  <!-- SAVINGS LIST SECTION (hidden by default) -->
+  <div id="savings-list" style="display: none; margin-top: 2rem;">
+    <h3>💾 My Savings List</h3>
+    <table id="savingsTable" class="savings-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Amount (₱)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="2">No savings yet.</td></tr>
+      </tbody>
+    </table>
+    <button id="backToGoalsBtn">⬅ Back to Budget Goals</button>
+  </div>
+
+  <script>
+    const checkboxes = document.querySelectorAll("#budget-goals .day");
+    const totalSavedDisplay = document.querySelector("#budget-goals #totalSaved");
+    const amountInput = document.querySelector("#budget-goals #amountInput");
+    const saveBtn = document.querySelector("#budget-goals #saveBtn");
+    const saveDate = document.querySelector("#budget-goals #saveDate");
+    const logMessage = document.querySelector("#budget-goals #logMessage");
+    const viewSavingsBtn = document.querySelector("#budget-goals #viewSavingsBtn");
+    const backBtn = document.querySelector("#budget-goals #backBtn");
+    const savingsList = document.querySelector("#budget-goals #savings-list");
+    const streakSection = document.querySelector("#budget-goals .streak-section");
+    const savingsTable = document.querySelector("#budget-goals #savingsTable tbody");
+    const backToGoalsBtn = document.querySelector("#budget-goals #backToGoalsBtn");
+
+    let totalSaved = 0;
+
+    // 🔥 Flame update based on total savings
+    function updateFlame() {
+      const flame = document.querySelector("#budget-goals .flame");
+      if (!flame) return;
+      flame.className = "flame";
+
+      if (totalSaved >= 5000) flame.classList.add("level-5");
+      else if (totalSaved >= 3000) flame.classList.add("level-4");
+      else if (totalSaved >= 2000) flame.classList.add("level-3");
+      else if (totalSaved >= 1000) flame.classList.add("level-2");
+      else if (totalSaved >= 500) flame.classList.add("level-1");
+    }
+
+    // Checkbox streak logic
+    checkboxes.forEach((box) => {
+      box.addEventListener("change", () => {
+        const amountPerDay = parseFloat(amountInput.value) || 0;
+        const totalChecked = document.querySelectorAll("#budget-goals .day:checked").length;
+        totalSaved = totalChecked * amountPerDay;
+        totalSavedDisplay.textContent = totalSaved.toFixed(2);
+        updateFlame();
+      });
+    });
+
+    // Calendar save logic
+    saveBtn.addEventListener("click", () => {
+      const amountPerDay = parseFloat(amountInput.value) || 0;
+      const chosenDate = saveDate.value;
+
+      if (!chosenDate || amountPerDay <= 0) {
+        logMessage.textContent = "⚠️ Please select a valid date and amount!";
+        logMessage.style.color = "red";
+        return;
+      }
+
+      totalSaved += amountPerDay;
+      totalSavedDisplay.textContent = totalSaved.toFixed(2);
+      updateFlame();
+      logMessage.textContent = `✅ Saved ₱${amountPerDay.toFixed(2)} for ${chosenDate}`;
+      logMessage.style.color = "#064420";
+
+      const newRow = document.createElement("tr");
+      newRow.innerHTML = `<td>${chosenDate}</td><td>₱${amountPerDay.toFixed(2)}</td>`;
+      if (savingsTable.children[0] && savingsTable.children[0].children.length === 1) {
+        savingsTable.innerHTML = "";
+      }
+      savingsTable.appendChild(newRow);
+    });
+
+    // Show Savings List
+    viewSavingsBtn.addEventListener("click", () => {
+      streakSection.style.display = "none";
+      savingsList.style.display = "block";
+    });
+
+    // Back to Budget Goals
+    backToGoalsBtn.addEventListener("click", () => {
+      savingsList.style.display = "none";
+      streakSection.style.display = "block";
+    });
+
+    // Back to Features
+    backBtn.addEventListener("click", () => {
+      window.location.href = "#features";
+    });
+  </script>
+</section>
+
+
+    <!-- SMART INSIGHTS -->
+<div class="smart-insights">
+  <div class="ocean-container">
+    <div class="center-island">
+      <h3>WAIS WALLET</h3>
+      <p>Your Money Hub</p>
+    </div>
+    <div id="bubblesRoot"></div>
+  </div>
+
+  <div class="add-bubble">
+    <h4>Add New Category</h4>
+    <input id="newCategoryName" type="text" placeholder="Category Name">
+    <input id="newCategoryAmount" type="number" placeholder="Initial Amount ₱">
+    <button id="addCategoryBtn">Add Bubble</button>
+  </div>
+</div>
+
+<script>
+let spendingData = [
+  { category: "Food", items: [ {name:"Burger", amt:200}, {name:"Pizza", amt:400} ], x:undefined, y:undefined },
+  { category: "Transport", items: [ {name:"Jeep", amt:50} ], x:undefined, y:undefined },
+  { category: "Bills", items: [ {name:"Electricity", amt:1500} ], x:undefined, y:undefined },
+];
+
+const bubblesRoot = document.getElementById('bubblesRoot');
+
+function formatCurrency(n){ return '₱'+Math.round(n).toLocaleString('en-PH'); }
+function calculateTotal(items){ return items.reduce((sum,i)=>sum+i.amt,0); }
+
+function createBubble(d){
+  const rect = document.querySelector('.ocean-container').getBoundingClientRect();
+  const width = rect.width, height = rect.height;
+  const maxAmount = Math.max(...spendingData.map(b=>calculateTotal(b.items)));
+  
+  const bubble = document.createElement('div');
+  bubble.className='bubble';
+  
+  const total = calculateTotal(d.items);
+  const minR=60, maxR=130;
+  const r = minR + Math.sqrt(total/maxAmount)*(maxR-minR);
+  bubble.style.width = bubble.style.height = r+'px';
+  bubble.style.left = (d.x!==undefined?d.x:Math.random()*(width-r-40)+20)+'px';
+  bubble.style.top = (d.y!==undefined?d.y:Math.random()*(height-r-40)+20)+'px';
+
+  const pct = total/maxAmount;
+  let color = pct>0.6?'#ffd1cb': pct>0.3?'#fff4b0':'#c9f6d4';
+  bubble.style.background = `radial-gradient(circle at 30% 30%,#fff,${color})`;
+
+  const lbl = document.createElement('div');
+  lbl.className='label';
+  lbl.innerHTML = `<strong>${d.category}</strong><br>${formatCurrency(total)}`;
+  bubble.appendChild(lbl);
+
+  const expandedDiv = document.createElement('div');
+  expandedDiv.className='expanded-content';
+  expandedDiv.style.display='none';
+  bubble.appendChild(expandedDiv);
+
+  // Expand bubble on click
+  bubble.addEventListener('click', e=>{
+    e.stopPropagation();
+    const isExpanded = expandedDiv.style.display==='block';
+    document.querySelectorAll('.bubble .expanded-content').forEach(c=>c.style.display='none');
+    document.querySelectorAll('.bubble').forEach(b=>b.classList.remove('expanded'));
+    if(!isExpanded){
+      bubble.classList.add('expanded');
+      expandedDiv.style.display='block';
+      renderExpandedContent(expandedDiv, d);
+    }
+  });
+
+  // Drag functionality
+  bubble.onmousedown = function(e){
+    e.preventDefault();
+    let shiftX = e.clientX - bubble.getBoundingClientRect().left;
+    let shiftY = e.clientY - bubble.getBoundingClientRect().top;
+    function moveAt(pageX,pageY){
+      let newX = pageX - shiftX - rect.left;
+      let newY = pageY - shiftY - rect.top;
+      newX = Math.max(0, Math.min(newX, width-bubble.offsetWidth));
+      newY = Math.max(0, Math.min(newY, height-bubble.offsetHeight));
+      bubble.style.left = newX + 'px';
+      bubble.style.top = newY + 'px';
+      d.x = newX; d.y = newY;
+    }
+    function onMouseMove(event){ moveAt(event.pageX,event.pageY); }
+    document.addEventListener('mousemove',onMouseMove);
+    document.addEventListener('mouseup',()=>{document.removeEventListener('mousemove',onMouseMove)}, {once:true});
+  }
+
+  bubblesRoot.appendChild(bubble);
+}
+
+function renderExpandedContent(container, d){
+  container.innerHTML='';
+  const expensesDiv = document.createElement('div');
+  expensesDiv.className='expenses-list';
+  container.appendChild(expensesDiv);
+
+  function renderItems(){
+    expensesDiv.innerHTML='';
+    d.items.forEach((item,i)=>{
+      const itemDiv = document.createElement('div');
+      itemDiv.className='expense-item';
+      itemDiv.innerHTML = `${item.name} - ${formatCurrency(item.amt)} <button>Remove</button>`;
+      itemDiv.querySelector('button').addEventListener('click', ()=>{
+        d.items.splice(i,1);
+        renderItems();
+      });
+      expensesDiv.appendChild(itemDiv);
+    });
+  }
+  renderItems();
+
+  const nameInput = document.createElement('input');
+  nameInput.placeholder="Expense Name";
+  nameInput.type="text";
+  nameInput.className='new-item-name';
+
+  const amtInput = document.createElement('input');
+  amtInput.placeholder="Amount ₱";
+  amtInput.type="number";
+  amtInput.className='new-item-amt';
+
+  const addBtn = document.createElement('button');
+  addBtn.textContent="Add Expense";
+  addBtn.className='add-item';
+  addBtn.addEventListener('click', ()=>{
+    const name = nameInput.value.trim();
+    const amt = parseFloat(amtInput.value);
+    if(!name || isNaN(amt)) return;
+    d.items.push({name:name, amt:amt});
+    nameInput.value=''; amtInput.value='';
+    renderItems();
+  });
+
+  const deleteBtn = document.createElement('button');
+  deleteBtn.textContent="Delete Category";
+  deleteBtn.className='delete-bubble';
+  deleteBtn.addEventListener('click', ()=>{
+    spendingData = spendingData.filter(b=>b!==d);
+    container.parentElement.remove();
+  });
+
+  container.appendChild(nameInput);
+  container.appendChild(amtInput);
+  container.appendChild(addBtn);
+  container.appendChild(deleteBtn);
+}
+
+function renderAllBubbles(){
+  bubblesRoot.innerHTML='';
+  spendingData.forEach(d=>createBubble(d));
+}
+
+renderAllBubbles();
+
+const newCategoryName = document.getElementById('newCategoryName');
+const newCategoryAmount = document.getElementById('newCategoryAmount');
+const addCategoryBtn = document.getElementById('addCategoryBtn');
+
+addCategoryBtn.addEventListener('click', ()=>{
+  const name = newCategoryName.value.trim();
+  const amt = parseFloat(newCategoryAmount.value);
+  if(!name || isNaN(amt)) return;
+  spendingData.push({category:name, items:[{name:"Initial", amt:amt}]});
+  renderAllBubbles();
+  newCategoryName.value=''; newCategoryAmount.value='';
+});
+</script>
+
+
+<footer>
+    <p>© 2025 Wais Wallet | Smart Budgeting Made Simple</p>
+  </footer>
+</body>
+</html>
