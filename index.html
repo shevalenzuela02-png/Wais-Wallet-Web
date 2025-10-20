@@ -249,7 +249,8 @@
     e.preventDefault();
 
     // Replace with your Service ID and Template ID
-    emailjs.send("service_gws4603",{
+    emailjs.send("service_gws4603, 
+__ejs-test-mail-service__",{
       from_name: contactForm.name.value,
       from_email: contactForm.email.value,
       subject: contactForm.subject.value,
@@ -764,4 +765,5 @@ addCategoryBtn.addEventListener('click', ()=>{
   </footer>
 </body>
 </html>
+
 
